@@ -49,8 +49,8 @@
 
 <style>
 	.container {
-		width: 100svw;
-		height: 100svh;
+		width: 100%;
+		height: 100%;
 		position: relative;
 	}
 
@@ -99,6 +99,7 @@
 		padding: 0 16px;
 		gap: 20px;
 		margin-bottom: 128px;
+		width: 100%;
 	}
 
 	.lower-nav {
