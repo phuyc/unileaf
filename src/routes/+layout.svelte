@@ -76,21 +76,22 @@
 
 	.streak-points {
 		display: inline-flex;
-		gap: 16px;
+		gap: 12px;
 	}
 
 	.streak, .points {
 		display: inline-flex;
 		align-items: center;
-	}
-
-	.points {
 		gap: 4px;
 	}
 
 	.streak p, .points p {
 		font-size: 24px;
 		font-weight: bold;
+	}
+
+	.streak img {
+		width: 26px;
 	}
 
 	.main-part {

@@ -1,9 +1,10 @@
 <script>
     export let title;
-    export let src
+    export let src;
+    export let handleClick = () => {};
 </script>
 
-<button class="task">
+<button class="task" on:click={handleClick}>
     <div class="title">{title}</div>
     <div class="icon">
         <img src={src} alt={src}>
