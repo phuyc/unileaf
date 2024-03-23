@@ -6,13 +6,19 @@
 
 	let isQuizOpen = false;
 	let isFoodCheckOpen = false;
+	let isTransportationOpen=false;
 
 
 	let choice = "";
 
+	function switchTransportation(){
+		isTransportationOpen=!isTransportationOpen;
+	}
+
 	function switchFoodCheck(){
 		isFoodCheckOpen=!isFoodCheckOpen;
 	}
+
 
 	function openQuiz() {
 		isQuizOpen = !isQuizOpen;
@@ -25,6 +31,8 @@
 	function incorrect() {
 		isQuizOpen = !isQuizOpen;
 	}
+
+
 </script>
 
 <Leaderboard />
@@ -52,7 +60,7 @@
 	<div class="tasks">
 		<Task title="Food" src="fork.jpg" handleClick={switchFoodCheck}/>
 		<Task title="Checkpoints" src="map.svg"/>
-		<Task title="Transportation" src="bus.svg"/>
+		<Task title="Transportation" src="bus.svg" handleClick={switchTransportation}/>
 		<Task title="Quizzes" src="quiz.svg" handleClick={openQuiz}/>
 	</div>
 </div>
@@ -109,6 +117,33 @@
 					</button>
 					<button class="foodchoice" on:click={switchFoodCheck}>
 						<div class="food-choice-text">Non vegeterian</div>
+					</button>
+				</div>
+			</div>
+		</div>
+	</button>
+{/if}
+
+{#if isTransportationOpen}
+	<button class="overlay" on:click|self={switchTransportation}>
+		<div class="food-popup">
+			<button on:click={switchTransportation}>
+				<img class="closeFood" src="x.svg" alt="X">
+			</button>
+			<div class="food-part">
+				<div class="food-question">
+					How did you commute today?
+				</div>
+				<div class="quiz-choices">
+					<button class="foodchoice" on:click={switchTransportation}>
+						<div class="food-choice-text">Walking/Cycling</div>
+
+					</button>
+					<button class="foodchoice" on:click={switchTransportation}>
+						<div class="food-choice-text">Public transportation</div>
+					</button>
+					<button class="foodchoice" on:click={switchTransportation}>
+						<div class="food-choice-text">Car</div>
 					</button>
 				</div>
 			</div>
@@ -194,7 +229,7 @@
 	.food-question{
 		font-size: 20px;
 		font-weight: 600;
-		gap: 10px;
+		margin-bottom: 10px;
 	}
 
 	.quiz-choices {
@@ -227,6 +262,10 @@
 	}
 
 	.choice:active {
+		background: #DAF8FF;
+	}
+
+	.foodchoice:active{
 		background: #DAF8FF;
 	}
 
