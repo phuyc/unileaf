@@ -1,3 +1,7 @@
+<script>
+	import { streak, points } from "$lib/stores.js";
+</script>
+
 <div class="container">
 	<div class="nav">
 		<div class="nav-start">
@@ -9,7 +13,7 @@
 					Janna
 				</div>
 				<div class="nav-level">
-					Lvl 2
+					Lvl 20
 				</div>
 			</div>
 		</div>
@@ -17,11 +21,11 @@
 			<div class="streak-points">
 				<div class="streak">
 					<img src="/fire.svg" alt="Current Streak">
-					<p>74</p>
+					<p>{$streak}</p>
 				</div>
 				<div class="points">
 					<img src="/tree.svg" alt="tree">
-					<p>180</p>
+					<p>{$points}</p>
 				</div>
 			</div>
 			<button>
