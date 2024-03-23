@@ -3,6 +3,7 @@
   	import Leaderboard from "$lib/Leaderboard.svelte";
 	import Event from "$lib/Event.svelte";
 	import Task from "$lib/Task.svelte";
+
 	import FoodPopup from "$lib/FoodPopup.svelte";
 	
 	import { streak, points } from "$lib/stores.js";
@@ -10,6 +11,8 @@
 	let isQuizOpen = false;
 	let isFoodCheckOpen = false;
 	let isTransportationOpen = false;
+	let isMinimapOpen=false;
+
 
 	function disableScroll() {
 		let x = document.getElementsByTagName("BODY")[0];
@@ -23,6 +26,11 @@
 
 	function switchFoodCheck() {
 		isFoodCheckOpen = !isFoodCheckOpen;
+		disableScroll();
+	}
+
+	function switchMinimap(){
+		isMinimapOpen=!isMinimapOpen;
 		disableScroll();
 	}
 
@@ -73,11 +81,23 @@
 	<TitleBar title="Daily Tasks" />
 	<div class="tasks">
 		<Task title="Food" src="fork.jpg" handleClick={switchFoodCheck}/>
-		<Task title="Checkpoints" src="map.svg"/>
+		<Task title="Checkpoints" src="map.svg" handleClick={switchMinimap}/>
 		<Task title="Transportation" src="bus.svg" handleClick={switchTransportation}/>
 		<Task title="Quizzes" src="quiz.svg" handleClick={openQuiz}/>
 	</div>
 </div>
+
+
+
+{#if isMinimapOpen}
+	<button class="overlay" on:click|self={switchMinimap}>
+		<div class="quiz-popup">
+			<h1>Checkpoints</h1>
+		<img src="aaltoMap.png"
+			 style="max-width: 30% max-height: 20%;">
+		</div>
+	</button>
+{/if}
 
 {#if isQuizOpen}
 <button class="overlay" on:click|self={openQuiz}>
@@ -227,7 +247,7 @@
 		font-weight: 600;
 		margin-bottom: 10px;
 	}
-
+t
 	.quiz-choices {
 		text-align: start;
 		display: flex;
