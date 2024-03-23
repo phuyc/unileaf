@@ -1,0 +1,12 @@
+import { c as create_ssr_component } from "../../chunks/ssr.js";
+const css = {
+  code: ".container.svelte-1ceinhn.svelte-1ceinhn{width:100%;height:100%;position:relative}.nav.svelte-1ceinhn.svelte-1ceinhn{display:flex;justify-content:space-between;align-items:center;width:100%;padding:12px 8px}.nav-start.svelte-1ceinhn.svelte-1ceinhn{display:inline-flex;align-items:center;gap:8px}.nav-end.svelte-1ceinhn.svelte-1ceinhn{display:inline-flex;align-items:center;gap:8px}.streak-points.svelte-1ceinhn.svelte-1ceinhn{display:inline-flex;gap:16px}.streak.svelte-1ceinhn.svelte-1ceinhn,.points.svelte-1ceinhn.svelte-1ceinhn{display:inline-flex;align-items:center}.points.svelte-1ceinhn.svelte-1ceinhn{gap:4px}.streak.svelte-1ceinhn p.svelte-1ceinhn,.points.svelte-1ceinhn p.svelte-1ceinhn{font-size:24px;font-weight:bold}.main-part.svelte-1ceinhn.svelte-1ceinhn{display:flex;flex-direction:column;padding:0 16px;gap:20px;margin-bottom:128px;width:100%}.lower-nav.svelte-1ceinhn.svelte-1ceinhn{position:fixed;border:1px solid #000;background-color:#FFF;border-radius:16px;box-shadow:#000 0 4px;left:16px;bottom:24px;display:inline-flex;align-items:center;justify-content:space-evenly;width:calc(100% - 32px);height:64px;padding:12px 8px;z-index:2}",
+  map: null
+};
+const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  $$result.css.add(css);
+  return `<div class="container svelte-1ceinhn"><div class="nav svelte-1ceinhn" data-svelte-h="svelte-p6pwke"><div class="nav-start svelte-1ceinhn"><div class="icon"><img src="happy.svg" alt="My Happy SVG"></div> <div class="nav-text"><div class="nav-name">Janna</div> <div class="nav-level">Lvl 2</div></div></div> <div class="nav-end svelte-1ceinhn"><div class="streak-points svelte-1ceinhn"><div class="streak svelte-1ceinhn"><img src="/fire.svg" alt="Current Streak"> <p class="svelte-1ceinhn">74</p></div> <div class="points svelte-1ceinhn"><img src="/tree.svg" alt="tree"> <p class="svelte-1ceinhn">180</p></div></div> <button><img src="/Menu.svg" alt="Menu"></button></div></div> <div class="main-part svelte-1ceinhn">${slots.default ? slots.default({}) : ``}</div> <div class="lower-nav svelte-1ceinhn" data-svelte-h="svelte-118jnl7"><div class="home"><img src="home.svg" alt="Home"></div> <div class="leaderboard"><img src="leaderboard.svg" alt="Leaderboard"></div> <div class="profile"><img src="profile.svg" alt="Profile"></div></div> </div>`;
+});
+export {
+  Layout as default
+};
