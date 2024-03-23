@@ -1,3 +1,8 @@
+<script>
+	var count = 69;
+
+</script>
+
 <div class="container">
 	<div class="nav">
 		<div class="nav-start">
@@ -17,7 +22,7 @@
 			<div class="streak-points">
 				<div class="streak">
 					<img src="/fire.svg" alt="Current Streak">
-					<p>74</p>
+					<p>bind:value={count}</p>
 				</div>
 				<div class="points">
 					<img src="/tree.svg" alt="tree">
