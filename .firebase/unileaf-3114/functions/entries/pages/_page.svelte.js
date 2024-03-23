@@ -1,4 +1,5 @@
-import { c as create_ssr_component, e as escape, d as each, f as add_attribute, v as validate_component } from "../../chunks/ssr.js";
+import { c as create_ssr_component, e as escape, b as each, d as add_attribute, v as validate_component } from "../../chunks/ssr.js";
+import { p as points, s as streak } from "../../chunks/stores.js";
 const css$5 = {
   code: ".title-bar.svelte-11l9a5s{width:100%;border:1px solid #000;border-radius:16px;box-shadow:#000 0px 4px;padding:8px;text-align:center;font-size:24px;font-weight:800;background-color:#F865B0;margin-bottom:12px}",
   map: null
@@ -84,10 +85,16 @@ const css$1 = {
 };
 const FoodPopup = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { switchFoodCheck } = $$props;
+  let { correct } = $$props;
+  let { incorrect } = $$props;
   if ($$props.switchFoodCheck === void 0 && $$bindings.switchFoodCheck && switchFoodCheck !== void 0)
     $$bindings.switchFoodCheck(switchFoodCheck);
+  if ($$props.correct === void 0 && $$bindings.correct && correct !== void 0)
+    $$bindings.correct(correct);
+  if ($$props.incorrect === void 0 && $$bindings.incorrect && incorrect !== void 0)
+    $$bindings.incorrect(incorrect);
   $$result.css.add(css$1);
-  return `<button class="overlay svelte-4q865g"><div class="food-popup svelte-4q865g"><button data-svelte-h="svelte-1s6chzn"><img class="close svelte-4q865g" src="x.svg" alt="X"></button> <div class="food-part"><div class="food-question svelte-4q865g" data-svelte-h="svelte-v92m4o">What kind of food did you eat?</div> <div class="food-choices"><button class="foodchoice svelte-4q865g" data-svelte-h="svelte-95i5xc"><div class="food-choice-text svelte-4q865g">Vegeterian</div></button> <button class="foodchoice svelte-4q865g" data-svelte-h="svelte-l6n6yl"><div class="food-choice-text svelte-4q865g">Non vegeterian</div></button></div></div></div> </button>`;
+  return `<button class="overlay svelte-4q865g"><div class="food-popup svelte-4q865g"><button data-svelte-h="svelte-1s6chzn"><img class="close svelte-4q865g" src="x.svg" alt="X"></button> <div class="food-part"><div class="food-question svelte-4q865g" data-svelte-h="svelte-v92m4o">What kind of food did you eat?</div> <div class="food-choices"><button class="foodchoice svelte-4q865g" data-svelte-h="svelte-1n45yhr"><div class="food-choice-text svelte-4q865g">Vegeterian</div></button> <button class="foodchoice svelte-4q865g" data-svelte-h="svelte-gb8wul"><div class="food-choice-text svelte-4q865g">Non vegeterian</div></button></div></div></div> </button>`;
 });
 const css = {
   code: '.events.svelte-2sj34t{width:100%;display:inline-flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.tasks.svelte-2sj34t{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:12px}.overlay.svelte-2sj34t{position:fixed;z-index:3;top:0;left:0;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.5);display:flex;justify-content:center;align-items:center}.food-popup.svelte-2sj34t{background-color:#FFF;border:1px solid #FFF;border-radius:16px;box-shadow:#000 4px 4px;padding:30px;display:flex;flex-direction:column;gap:6px;position:relative}.quiz-popup.svelte-2sj34t{background-color:#FFF;border:1px solid #FFF;border-radius:16px;box-shadow:#000 4px 4px;width:80%;padding:24px;display:flex;flex-direction:column;gap:12px;position:relative}.close.svelte-2sj34t{position:absolute;right:16px;top:16px}.quiz-part.svelte-2sj34t{display:flex;flex-direction:column;gap:16px\r\n	}.quiz-title.svelte-2sj34t{font-size:28px;font-weight:600}.food-question.svelte-2sj34t{font-size:20px;font-weight:600;margin-bottom:10px}.quiz-choices.svelte-2sj34t{text-align:start;display:flex;flex-direction:column}.foodchoice.svelte-2sj34t{display:flex;align-items:center;border:1px solid #000;background:#FFF;width:100%}.choice.svelte-2sj34t{display:flex;align-items:center;border:1px solid #000;background:#FFF;width:100%}.choice.svelte-2sj34t:active{background:#DAF8FF}.foodchoice.svelte-2sj34t:active{background:#DAF8FF}.question-choice-letter.svelte-2sj34t{display:flex;width:50px;padding:10px;flex-direction:column;justify-content:center;align-items:center;gap:10px;color:#000;font-family:"Inter";font-size:18px;font-style:normal;font-weight:450;line-height:27px}.food-choice-text.svelte-2sj34t{text-align:start;width:100%;padding:10px;border-left:1px solid #000;color:#000;font-size:18px;font-weight:450;line-height:27px}.question-choice-text.svelte-2sj34t{text-align:start;width:100%;padding:10px;border-left:1px solid #000;color:#000;font-size:18px;font-weight:450;line-height:27px}.close-food.svelte-2sj34t{position:absolute;top:8px;right:8px}',
@@ -97,9 +104,10 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let isQuizOpen = false;
   let isFoodCheckOpen = false;
   let isTransportationOpen = false;
+  let isMinimapOpen = false;
   function disableScroll() {
     let x = document.getElementsByTagName("BODY")[0];
-    x.style.overflow = isQuizOpen || isFoodCheckOpen || isTransportationOpen ? "hidden" : "auto";
+    x.style.overflow = isQuizOpen || isFoodCheckOpen || isTransportationOpen || isMinimapOpen ? "hidden" : "auto";
   }
   function switchTransportation() {
     isTransportationOpen = !isTransportationOpen;
@@ -109,8 +117,22 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     isFoodCheckOpen = !isFoodCheckOpen;
     disableScroll();
   }
+  function switchMinimap() {
+    isMinimapOpen = !isMinimapOpen;
+    disableScroll();
+  }
   function openQuiz() {
     isQuizOpen = !isQuizOpen;
+    disableScroll();
+  }
+  function correct(closeModal) {
+    closeModal();
+    disableScroll();
+    points.update((n) => n + 5);
+    streak.update((n) => n + 1);
+  }
+  function incorrect(closeModal) {
+    closeModal();
     disableScroll();
   }
   $$result.css.add(css);
@@ -143,7 +165,16 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     },
     {},
     {}
-  )} ${validate_component(Task, "Task").$$render($$result, { title: "Checkpoints", src: "map.svg" }, {}, {})} ${validate_component(Task, "Task").$$render(
+  )} ${validate_component(Task, "Task").$$render(
+    $$result,
+    {
+      title: "Checkpoints",
+      src: "map.svg",
+      handleClick: switchMinimap
+    },
+    {},
+    {}
+  )} ${validate_component(Task, "Task").$$render(
     $$result,
     {
       title: "Transportation",
@@ -161,7 +192,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     },
     {},
     {}
-  )}</div></div> ${isQuizOpen ? `<button class="overlay svelte-2sj34t"><div class="quiz-popup svelte-2sj34t"><button data-svelte-h="svelte-170zpc7"><img class="close svelte-2sj34t" src="x.svg" alt="X"></button> <div class="quiz-title svelte-2sj34t" data-svelte-h="svelte-64rvth">Question</div> <div class="quiz-part svelte-2sj34t"><div class="quiz-question" data-svelte-h="svelte-1sa0ckp">What is the PRIMARY concern regarding the environmental impact of electric vehicles?</div> <div class="quiz-choices svelte-2sj34t"><button class="choice svelte-2sj34t" data-svelte-h="svelte-13y3wse"><div class="question-choice-letter svelte-2sj34t">A</div> <div class="question-choice-text svelte-2sj34t">Limited range</div></button> <button class="choice svelte-2sj34t" data-svelte-h="svelte-xl2nkb"><div class="question-choice-letter svelte-2sj34t">B</div> <div class="question-choice-text svelte-2sj34t">Disposal of used batteries</div></button> <button class="choice svelte-2sj34t" data-svelte-h="svelte-mg53tq"><div class="question-choice-letter svelte-2sj34t">C</div> <div class="question-choice-text svelte-2sj34t">Reliance on fossil fuels</div></button> <button class="choice svelte-2sj34t" data-svelte-h="svelte-169le01"><div class="question-choice-letter svelte-2sj34t">D</div> <div class="question-choice-text svelte-2sj34t">The eco-friendly nature</div></button></div></div></div></button>` : ``} ${isFoodCheckOpen ? `${validate_component(FoodPopup, "FoodPopup").$$render($$result, { switchFoodCheck }, {}, {})}` : ``} ${isTransportationOpen ? `<button class="overlay svelte-2sj34t"><div class="food-popup svelte-2sj34t"><button data-svelte-h="svelte-1910ccd"><img class="close-food svelte-2sj34t" src="x.svg" alt="X"></button> <div class="food-part"><div class="food-question svelte-2sj34t" data-svelte-h="svelte-1kymptt">How did you commute today?</div> <div class="quiz-choices svelte-2sj34t"><button class="foodchoice svelte-2sj34t" data-svelte-h="svelte-1f2uy62"><div class="food-choice-text svelte-2sj34t">Walking/Cycling</div></button> <button class="foodchoice svelte-2sj34t" data-svelte-h="svelte-1yh1fe2"><div class="food-choice-text svelte-2sj34t">Public transportation</div></button> <button class="foodchoice svelte-2sj34t" data-svelte-h="svelte-1tz9j13"><div class="food-choice-text svelte-2sj34t">Car</div></button></div></div></div></button>` : ``}`;
+  )}</div></div> ${isMinimapOpen ? `<button class="overlay svelte-2sj34t"><div class="quiz-popup svelte-2sj34t"><button data-svelte-h="svelte-q6pey5"><img class="close svelte-2sj34t" src="x.svg" alt="X"></button> <h1 data-svelte-h="svelte-pg06hn">Checkpoints</h1> <img src="aaltoMap.png" style="max-width: 30% max-height: 20%;" alt="Aalto Map"></div></button>` : ``} ${isQuizOpen ? `<button class="overlay svelte-2sj34t"><div class="quiz-popup svelte-2sj34t"><button data-svelte-h="svelte-170zpc7"><img class="close svelte-2sj34t" src="x.svg" alt="X"></button> <div class="quiz-title svelte-2sj34t" data-svelte-h="svelte-64rvth">Question</div> <div class="quiz-part svelte-2sj34t"><div class="quiz-question" data-svelte-h="svelte-1sa0ckp">What is the PRIMARY concern regarding the environmental impact of electric vehicles?</div> <div class="quiz-choices svelte-2sj34t"><button class="choice svelte-2sj34t" data-svelte-h="svelte-1v2ijgo"><div class="question-choice-letter svelte-2sj34t">A</div> <div class="question-choice-text svelte-2sj34t">Limited range</div></button> <button class="choice svelte-2sj34t" data-svelte-h="svelte-1rp0301"><div class="question-choice-letter svelte-2sj34t">B</div> <div class="question-choice-text svelte-2sj34t">Disposal of used batteries</div></button> <button class="choice svelte-2sj34t" data-svelte-h="svelte-10pdju0"><div class="question-choice-letter svelte-2sj34t">C</div> <div class="question-choice-text svelte-2sj34t">Reliance on fossil fuels</div></button> <button class="choice svelte-2sj34t" data-svelte-h="svelte-3m3atb"><div class="question-choice-letter svelte-2sj34t">D</div> <div class="question-choice-text svelte-2sj34t">The eco-friendly nature</div></button></div></div></div></button>` : ``} ${isFoodCheckOpen ? `${validate_component(FoodPopup, "FoodPopup").$$render($$result, { switchFoodCheck, correct, incorrect }, {}, {})}` : ``} ${isTransportationOpen ? `<button class="overlay svelte-2sj34t"><div class="food-popup svelte-2sj34t"><button data-svelte-h="svelte-1910ccd"><img class="close-food svelte-2sj34t" src="x.svg" alt="X"></button> <div class="food-part"><div class="food-question svelte-2sj34t" data-svelte-h="svelte-1kymptt">How did you commute today?</div> <div class="quiz-choices svelte-2sj34t"><button class="foodchoice svelte-2sj34t" data-svelte-h="svelte-1glkjjz"><div class="food-choice-text svelte-2sj34t">Walking/Cycling</div></button> <button class="foodchoice svelte-2sj34t" data-svelte-h="svelte-10udrhr"><div class="food-choice-text svelte-2sj34t">Public transportation</div></button> <button class="foodchoice svelte-2sj34t" data-svelte-h="svelte-139epad"><div class="food-choice-text svelte-2sj34t">Car</div></button></div></div></div></button>` : ``}`;
 });
 export {
   Page as default
