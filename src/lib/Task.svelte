@@ -5,8 +5,8 @@
 
     import Modal from './Modal.svelte';
     let showModal = false;
-    
-    var correctFood=document.getElementById("foodOption1")    
+
+
 </script>
 
 <button class="task" on:click={handleClick}>
@@ -16,23 +16,6 @@
     </div>
 </button>
 
-<button class="task" on:click={() => (showModal = true)}>
-    <Modal bind:showModal>
-        <div id="foodModal" class="modal1">
-            <div class="container">
-                <div class="modal-content">
-                    <h1>What type of food did you eat?</h1>
-                    <br>
-                    <input type="radio" id="foodOption1" name="food" value="vegFood">
-                    <h2>Vegeterian</h2>
-                    <br>
-                    <input type="radio" id="foodOption2" name="food" value="nonVegFood">
-                    <h2>Non vegeterian</h2>
-                </div>
-            </div>
-        </div>
-    </Modal>
-</button>
 
 
 <style>

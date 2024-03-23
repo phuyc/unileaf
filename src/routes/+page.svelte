@@ -5,8 +5,14 @@
 	import Task from "$lib/Task.svelte";
 
 	let isQuizOpen = false;
+	let isFoodCheckOpen = false;
+
 
 	let choice = "";
+
+	function switchFoodCheck(){
+		isFoodCheckOpen=!isFoodCheckOpen;
+	}
 
 	function openQuiz() {
 		isQuizOpen = !isQuizOpen;
@@ -44,7 +50,7 @@
 <div class="daily-tasks">
 	<TitleBar title="Daily Tasks" />
 	<div class="tasks">
-		<Task title="Food" src="fork.jpg"/>
+		<Task title="Food" src="fork.jpg" handleClick={switchFoodCheck}/>
 		<Task title="Checkpoints" src="map.svg"/>
 		<Task title="Transportation" src="bus.svg"/>
 		<Task title="Quizzes" src="quiz.svg" handleClick={openQuiz}/>
@@ -85,6 +91,31 @@
 	</div>
 </button>
 {/if}
+
+{#if isFoodCheckOpen}
+	<button class="overlay" on:click|self={switchFoodCheck}>
+		<div class="food-popup">
+			<button on:click={switchFoodCheck}>
+				<img class="closeFood" src="x.svg" alt="X">
+			</button>
+			<div class="food-part">
+					<div class="food-question">
+					What kind of food did you eat?
+				</div>
+				<div class="food-choices">
+					<button class="foodchoice" on:click={switchFoodCheck}>
+						<div class="food-choice-text">Vegeterian</div>
+
+					</button>
+					<button class="foodchoice" on:click={switchFoodCheck}>
+						<div class="food-choice-text">Non vegeterian</div>
+					</button>
+				</div>
+			</div>
+		</div>
+	</button>
+{/if}
+
 <style>
 	.events {
 		width: 100%;
@@ -113,6 +144,19 @@
         justify-content: center;
         align-items: center;
 	}
+	.food-popup{
+		background-color: #FFF;
+		border: 1px solid #FFF;
+		border-radius: 16px;
+		box-shadow: #000 4px 4px;
+		width: 30%;
+		/* height: 42%; */
+		padding: 30px;
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		position: relative;
+	}
 
 	.quiz-popup {
 		background-color: #FFF;
@@ -129,11 +173,13 @@
 		/* transform: translate(0, -10%); */
 	}
 
+
 	.close {
 		position: absolute;
 		right: 16px;
 		top: 16px;
 	}
+
 
 	.quiz-part {
 		display: flex;
@@ -144,13 +190,32 @@
 	.quiz-title {
 		font-size: 28px;
 		font-weight: 600;
-	}	
+	}
+	.food-question{
+		font-size: 20px;
+		font-weight: 600;
+		gap: 10px;
+	}
 
 	.quiz-choices {
 		text-align: start;
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+	}
+
+	.food-choices{
+		margin-top: 10px;
+		text-align: start;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+	.foodchoice{
+		display: flex;
+		align-items: center;
+		border: 1px solid #000;
+		background: #FFF;
+		width: 100%;
 	}
 
 	.choice {
@@ -182,6 +247,17 @@
         font-weight: 450;
         line-height: 27px; /* 150% */
     }
+
+	.food-choice-text{
+		text-align: start;
+		width: 100%;
+		padding: 10px;
+		border-left: 1px solid #000;
+		color: #000;
+		font-size: 18px;
+		font-weight: 450;
+		line-height: 27px; /* 150% */
+	}
 
 	.question-choice-text {
         text-align: start;

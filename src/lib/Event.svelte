@@ -24,7 +24,7 @@
     <div class="description">
         <div class="title">{title}</div>
         <div class="location">{location}</div>
-        <a href="#" class="see-more">See More</a>
+        <a href="https://dataguild.fi/" class="see-more">See More</a>
         <div class="time">{d}d left</div>
     </div>
 </button>
