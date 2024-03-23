@@ -16,7 +16,7 @@
 
 	function disableScroll() {
 		let x = document.getElementsByTagName("BODY")[0];
-        x.style.overflow = isQuizOpen || isFoodCheckOpen || isTransportationOpen ? 'hidden' : 'auto';
+        x.style.overflow = isQuizOpen || isFoodCheckOpen || isTransportationOpen || isMinimapOpen ? 'hidden' : 'auto';
 	}
 
 	function switchTransportation() {
@@ -92,9 +92,14 @@
 {#if isMinimapOpen}
 	<button class="overlay" on:click|self={switchMinimap}>
 		<div class="quiz-popup">
+			<button on:click={switchMinimap}>
+				<img class="close" src="x.svg" alt="X">
+			</button>
 			<h1>Checkpoints</h1>
-		<img src="aaltoMap.png"
-			 style="max-width: 30% max-height: 20%;">
+			<img src="aaltoMap.png"
+					style="max-width: 30% max-height: 20%;"
+					alt="Aalto Map"
+			>
 		</div>
 	</button>
 {/if}
@@ -247,7 +252,7 @@
 		font-weight: 600;
 		margin-bottom: 10px;
 	}
-t
+
 	.quiz-choices {
 		text-align: start;
 		display: flex;
