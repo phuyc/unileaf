@@ -38,8 +38,6 @@
 	function incorrect() {
 		isQuizOpen = !isQuizOpen;
 	}
-
-
 </script>
 
 <Leaderboard />
@@ -76,10 +74,19 @@
 
 {#if isMinimapOpen}
 	<button class="overlay" on:click|self={switchMinimap}>
-		<div class="quiz-popup">
+		<div class="map">
 			<h1>Checkpoints</h1>
-		<img src="aaltoMap.png"
-			 style="max-width: 30% max-height: 20%;">
+			<iframe
+					width=100%;
+					height=100%;
+					frameborder="0" style="border:0"
+					referrerpolicy="no-referrer-when-downgrade"
+					src="https://www.google.com/maps/embed/v1/place?key={ur api key}&q=Otakaari+1,Espoo+Finland"
+					>
+			</iframe>
+
+			<!--	<img src="aaltoMap.png" alt="Minimap"
+			 style="max-width: 30%; max-height: 20%;">-->
 		</div>
 	</button>
 {/if}
@@ -198,6 +205,20 @@
         justify-content: center;
         align-items: center;
 	}
+	.map{
+		background-color: #FFF;
+		border: 1px solid #FFF;
+		border-radius: 16px;
+		box-shadow: #000 4px 4px;
+		width: 80%;
+		height: 80%;
+		padding: 24px;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		position: relative;
+
+	}
 	.food-popup{
 		background-color: #FFF;
 		border: 1px solid #FFF;
@@ -250,7 +271,7 @@
 		font-weight: 600;
 		margin-bottom: 10px;
 	}
-t
+
 	.quiz-choices {
 		text-align: start;
 		display: flex;
