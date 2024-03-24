@@ -3,41 +3,58 @@
   	import Leaderboard from "$lib/Leaderboard.svelte";
 	import Event from "$lib/Event.svelte";
 	import Task from "$lib/Task.svelte";
-	import Modal from "$lib/Modal.svelte";
 
+	import FoodPopup from "$lib/FoodPopup.svelte";
+
+	import { streak, points } from "$lib/stores.js";
 
 	let isQuizOpen = false;
 	let isFoodCheckOpen = false;
-	let isTransportationOpen=false;
+	let isTransportationOpen = false;
 	let isMinimapOpen=false;
 
 
-	let choice = "";
+	function disableScroll() {
+		let x = document.getElementsByTagName("BODY")[0];
+        x.style.overflow = isQuizOpen || isFoodCheckOpen || isTransportationOpen || isMinimapOpen ? 'hidden' : 'auto';
+	}
 
-	function switchTransportation(){
-		isTransportationOpen=!isTransportationOpen;
+	function switchTransportation() {
+		isTransportationOpen = !isTransportationOpen;
+		disableScroll();
+	}
+
+	function switchFoodCheck() {
+		isFoodCheckOpen = !isFoodCheckOpen;
+		disableScroll();
 	}
 
 	function switchMinimap(){
 		isMinimapOpen=!isMinimapOpen;
-	}
-
-	function switchFoodCheck(){
-		isFoodCheckOpen=!isFoodCheckOpen;
+		disableScroll();
 	}
 
 
 	function openQuiz() {
 		isQuizOpen = !isQuizOpen;
+		disableScroll();
 	}
 
-	function correct() {
-		isQuizOpen = !isQuizOpen;
+	// Name this better
+	function correct(closeModal) {
+		closeModal();
+		disableScroll();
+		points.update((n) => n + 5);
+		streak.update((n) => n + 1);
 	}
 
-	function incorrect() {
-		isQuizOpen = !isQuizOpen;
+	// Name this better
+	function incorrect(closeModal) {
+		closeModal();
+		disableScroll();
 	}
+
+
 </script>
 
 <Leaderboard />
@@ -103,19 +120,19 @@
 				What is the PRIMARY concern regarding the environmental impact of electric vehicles?
 			</div>
 			<div class="quiz-choices">
-				<button class="choice" on:click={incorrect}>
+				<button class="choice" on:click={() => incorrect(openQuiz)}>
 					<div class="question-choice-letter">A</div>
 					<div class="question-choice-text">Limited range</div>
 				</button>
-				<button class="choice" on:click={correct}>
+				<button class="choice" on:click={() => correct(openQuiz)}>
 					<div class="question-choice-letter">B</div>
 					<div class="question-choice-text">Disposal of used batteries</div>
 				</button>
-				<button class="choice" on:click={incorrect}>
+				<button class="choice" on:click={() => incorrect(openQuiz)}>
 					<div class="question-choice-letter">C</div>
 					<div class="question-choice-text">Reliance on fossil fuels</div>
 				</button>
-				<button class="choice" on:click={incorrect}>
+				<button class="choice" on:click={() => incorrect(openQuiz)}>
 					<div class="question-choice-letter">D</div>
 					<div class="question-choice-text">The eco-friendly nature</div>
 				</button>
@@ -127,48 +144,28 @@
 {/if}
 
 {#if isFoodCheckOpen}
-	<button class="overlay" on:click|self={switchFoodCheck}>
-		<div class="food-popup">
-			<button on:click={switchFoodCheck}>
-				<img class="closeFood" src="x.svg" alt="X">
-			</button>
-			<div class="food-part">
-					<div class="food-question">
-					What kind of food did you eat?
-				</div>
-				<div class="food-choices">
-					<button class="foodchoice" on:click={switchFoodCheck}>
-						<div class="food-choice-text">Vegeterian</div>
-
-					</button>
-					<button class="foodchoice" on:click={switchFoodCheck}>
-						<div class="food-choice-text">Non vegeterian</div>
-					</button>
-				</div>
-			</div>
-		</div>
-	</button>
+	<FoodPopup {switchFoodCheck} {correct} {incorrect}/>
 {/if}
 
 {#if isTransportationOpen}
 	<button class="overlay" on:click|self={switchTransportation}>
 		<div class="food-popup">
 			<button on:click={switchTransportation}>
-				<img class="closeFood" src="x.svg" alt="X">
+				<img class="close-food" src="x.svg" alt="X">
 			</button>
 			<div class="food-part">
 				<div class="food-question">
 					How did you commute today?
 				</div>
 				<div class="quiz-choices">
-					<button class="foodchoice" on:click={switchTransportation}>
+					<button class="foodchoice" on:click={() => correct(switchTransportation)}>
 						<div class="food-choice-text">Walking/Cycling</div>
 
 					</button>
-					<button class="foodchoice" on:click={switchTransportation}>
+					<button class="foodchoice" on:click={() => correct(switchTransportation)}>
 						<div class="food-choice-text">Public transportation</div>
 					</button>
-					<button class="foodchoice" on:click={switchTransportation}>
+					<button class="foodchoice" on:click={() => incorrect(switchTransportation)}>
 						<div class="food-choice-text">Car</div>
 					</button>
 				</div>
@@ -224,7 +221,7 @@
 		border: 1px solid #FFF;
 		border-radius: 16px;
 		box-shadow: #000 4px 4px;
-		width: 30%;
+		/* width: 30%; */
 		/* height: 42%; */
 		padding: 30px;
 		display: flex;
@@ -278,13 +275,6 @@
 		flex-direction: column;
 	}
 
-	.food-choices{
-		margin-top: 10px;
-		text-align: start;
-		display: flex;
-		flex-direction: column;
-		gap: 16px;
-	}
 	.foodchoice{
 		display: flex;
 		align-items: center;
@@ -348,4 +338,10 @@
         font-weight: 450;
         line-height: 27px; /* 150% */
     }
+
+	.close-food {
+		position: absolute;
+		top: 8px;
+		right: 8px;
+	}
 </style>

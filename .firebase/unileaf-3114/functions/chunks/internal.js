@@ -1,4 +1,4 @@
-import { c as create_ssr_component, a as setContext, v as validate_component, m as missing_component } from "./ssr.js";
+import { c as create_ssr_component, s as setContext, v as validate_component, m as missing_component } from "./ssr.js";
 let base = "";
 let assets = base;
 const initial = { base, assets };
@@ -122,7 +122,7 @@ const options = {
   root: Root,
   service_worker: false,
   templates: {
-    app: ({ head, body, assets: assets2, nonce, env }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<link rel="icon" href="' + assets2 + '/favicon.png" />\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\n		' + head + '\n		<link rel="preconnect" href="https://fonts.googleapis.com">\n		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">\n	</head>\n	<body data-sveltekit-preload-data="hover">\n		<div style="display: contents">' + body + '</div>\n	</body>\n</html>\n\n<style>\n	* {\n		margin: 0;\n		padding: 0;\n		border: 0;\n		font-size: 100%;\n		font-family: "Inter";\n		box-sizing: border-box;\n		background: none;\n	}	\n\n	*::before,\n	*::after {\n		box-sizing: border-box;\n	}\n\n	a {\n		color: #1ceb5a;\n	}\n</style>',
+    app: ({ head, body, assets: assets2, nonce, env }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<!-- social sharing image -->\n		<meta property="og:title" content="Unileaf"  />\n		<meta property="og:description" content="Sow the Seeds of Sustainability with Unileaf" />\n		<meta property="og:type" content="website" />\n		<!-- <meta property="og:url" content="https://www.dsat16.com" /> -->\n		<meta property="og:image" content="/social_sharing_image.jpg" />\n				<meta name="twitter:card" content="summary_large_image">\n		<link rel="icon" href="' + assets2 + '/favicon.ico" />\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\n		' + head + '\n		<link rel="preconnect" href="https://fonts.googleapis.com">\n		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">\n		<title>Unileaf</title>\n	</head>\n	<body data-sveltekit-preload-data="hover">\n		<div style="display: contents">' + body + '</div>\n	</body>\n</html>\n\n<style>\n	/* :root {\n		color-scheme: light dark;\n	} */\n\n	* {\n		margin: 0;\n		padding: 0;\n		border: 0;\n		font-size: 100%;\n		font-family: "Inter";\n		box-sizing: border-box;\n		background: none;\n	}	\n\n	*::before,\n	*::after {\n		box-sizing: border-box;\n	}\n\n	a {\n		color: #1ceb5a;\n	}\n</style>',
     error: ({ status, message }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -194,7 +194,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "hz3hi6"
+  version_hash: "1b43zde"
 };
 async function get_hooks() {
   return {};
